@@ -1,7 +1,5 @@
 import React,{useState} from 'react'
 
-
-
 const Form = () => {
   
     const [user, setUser] = useState({
@@ -10,7 +8,8 @@ const Form = () => {
         email:'', 
         pais: '',
         description: '',
-        })
+        files:''
+    })
     
     const handleChange = (e) =>{
 
@@ -35,18 +34,21 @@ const Form = () => {
         <>  
             <form onSubmit={sendData}>
 
-                <label htmlFor="nombre">Nombre :</label>
-                <input type="text" name="nombre" value={user.nombre} onChange={handleChange}/>
+              
+                <input type="text" placeholder="Escribe tu nombre" name="nombre" value={user.nombre} onChange={handleChange}/>
 
-                <label htmlFor="apellido">Apellido : </label>
-                <input type="text" name="apellido" value={user.apellido} onChange={handleChange}/>
+                <input type="text" name="apellido" placeholder="Escribe tu apellido" value={user.apellido} onChange={handleChange}/>
             
-                <label htmlFor="email">Email : </label>
-                <input type="email" name="email" value={user.email} onChange={handleChange} />
+                <input type="email" name="email" placeholder="Escribe tu email" value={user.email} onChange={handleChange} />
 
-                <label htmlFor="pais">País de origen :</label>
-                <input type="text" name="pais"  value={user.pais} onChange={handleChange} />
-
+               
+                
+                <label htmlFor="pais">Selecciona el país:</label>
+                <select name="pais" onChange={handleChange}>
+                    <option value="mexico"> México</option>
+                    <option value="colombia">Colombia</option>
+                    <option value="peru">Perú</option> 
+                </select> 
 
                 <select name="rol" onChange={handleChange}>
                     <option value="ciudadano"> Ciudadano</option>
@@ -55,7 +57,7 @@ const Form = () => {
                 
                 <div className={rolShow()}>
                     <p>Sube tu logo aquí</p>
-                    <input type="file" name="files"/> 
+                    <input type="file" name="files" onChange={handleChange} value={user.files}/> 
                     <button >Subir Imagen</button>  
                 </div>
                

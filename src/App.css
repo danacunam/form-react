@@ -28,6 +28,22 @@
   color: #61dafb;
 }
 
+.hide{
+  visibility:hidden;
+}
+
+.show{
+  visibility: visible;
+}
+form{
+  height:80vh;
+  display:flex;
+  flex-direction: column;
+  width:50%;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

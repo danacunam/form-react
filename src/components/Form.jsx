@@ -1,4 +1,5 @@
 import React,{useState} from 'react'
+import axios from 'axios'
 
 const Form = () => {
   
@@ -10,7 +11,26 @@ const Form = () => {
         description: '',
         files:''
     })
-    
+        
+    const imgUl = async (e) =>{
+        const file = e.target.files[0]
+        const formData = new FormData()
+        formData.append('file', file)
+        formData.append('upload_preset', 'w8z6qhfr');
+
+        const res = await axios.post(
+            `https://api.cloudinary.com/v1_1/dwsremshi/image/upload`,
+            formData,
+            {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }
+        );        
+        user.files = res.data.secure_url
+        document.getElementById('usuario').src = user.files
+    }
+
     const handleChange = (e) =>{
 
             setUser({
@@ -20,14 +40,13 @@ const Form = () => {
      }
 
    const sendData = (e)=>{
-    console.log(user)
+    
+    
     e.preventDefault() 
     }
 
-     const rolShow = () =>{
-        if (user.rol ==='emprendedor') return 'show'
-        else return 'hide'
-    }
+
+    
     
    return (
         
@@ -50,22 +69,26 @@ const Form = () => {
                     <option value="peru">Perú</option> 
                 </select> 
 
-                <select name="rol" onChange={handleChange}>
-                    <option value="ciudadano"> Ciudadano</option>
-                    <option value="emprendedor">Emprendedor</option> 
-                </select> 
+               
                 
-                <div className={rolShow()}>
-                    <p>Sube tu logo aquí</p>
-                    <input type="file" name="files" onChange={handleChange} value={user.files}/> 
-                    <button >Subir Imagen</button>  
-                </div>
+           
+                 
+                    <input type="file" name="files" onChange={imgUl} /> 
+                    
+                
                
 
                 <textarea name="description" id="" cols="30" rows="10" value={user.description} onChange={handleChange}></textarea>
 
                 <input type="submit" name="submit" value="Enviar"/>
                
+               <div id="card">
+                   <p>{user.nombre}</p>
+                   <p>{user.apellido}</p>
+                   <p>{user.email}</p>
+                   <p>{user.pais}</p>
+                   <img id="usuario"></img>
+               </div>
           </form>
         </>
         
